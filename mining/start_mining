@@ -1,0 +1,29 @@
+#!/bin/bash
+
+set -xe
+
+RECV_ADDR=${1}
+SYMBOL=${2:-wow}
+THREADS=${3:-2}
+
+if [[ "${SYMBOL}" == "wow" ]]; then
+  ALGO="rx/wow"
+  CRYPTO="wownero"
+  URL=ca.${CRYPTO}.herominers.com:10661
+  ADDRESS=${RECV_ADDR}
+elif [[ "${SYMBOL}" == "xmr" ]]; then
+  ALGO="rx/0"
+  CRYPTO="monero"
+  URL=pool.supportxmr.com:3333
+  ADDRESS=${RECV_ADDR}
+fi
+
+/root/xmrig/build/xmrig \
+  --donate-level 1 \
+  --url=${URL} \
+  --user=${ADDRESS} \
+  --pass=$HOSTNAME \
+  --algo=${ALGO} \
+  --keepalive \
+  --print-time=10 \
+  --threads=${THREADS}
