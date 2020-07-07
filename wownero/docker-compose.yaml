@@ -38,5 +38,3 @@ services:
       - "traefik.http.routers.http.entrypoints=http"
       - "traefik.http.routers.https.tls=true"
       - "traefik.http.routers.https.tls.certresolver=letsencrypt"
-    ports:
-      - 8000:8000
