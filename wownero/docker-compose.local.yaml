@@ -24,7 +24,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./data/letsencrypt:/letsencrypt
   wownerod:
-    image: lalanza808/wownero:latest
+    build:
+      context: .
     volumes:
       - ./data/daemon:/data
     command:
@@ -39,4 +40,4 @@ services:
       - "traefik.http.routers.https.tls=true"
       - "traefik.http.routers.https.tls.certresolver=letsencrypt"
     ports:
-      - 8000:8000
+      - "8000:8000"
