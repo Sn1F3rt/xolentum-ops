@@ -1,28 +1,51 @@
 version: '3'
+volumes:
+  grafana:
+  prometheus:
 services:
-  reverse-proxy:
-    image: traefik:v2.2
+  prometheus:
+    image: prom/prometheus:v2.18.0
+    container_name: prometheus
+    restart: unless-stopped
     command:
-      # Try to enable this if something isn't working. Chances are, Traefik will tell you why
-      # Be careful on production as it exposes the traffic you might not want to expose
-      #--log.level=DEBUG
-      # --api.dashboard=true
-      # --api.insecure=true
-
-      --entrypoints.http.address=:80
-      --entrypoints.https.address=:443
-      --providers.docker=true
-      --api=false
-      --certificatesresolvers.letsencrypt.acme.httpchallenge=true
-      --certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=http
-      --certificatesresolvers.letsencrypt.acme.email=${ACME_EMAIL}
-      --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
-    ports:
-      - 80:80
-      - 443:443
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --web.console.libraries=/usr/share/prometheus/console_libraries
+      - --web.console.templates=/usr/share/prometheus/consoles
+      - --web.enable-admin-api
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./data/letsencrypt:/letsencrypt
+      - prometheus:/prometheus
+      - ./files/prometheus:/etc/prometheus
+    ports:
+      - 127.0.0.1:9090:9090
+  grafana:
+    image: grafana/grafana:6.5.0
+    container_name: grafana
+    ports:
+      - 127.0.0.1:3000:3000
+    environment:
+      HOSTNAME: grafana
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD}
+      GF_SERVER_ROOT_URL: ${GRAFANA_URL}
+      GF_ANALYTICS_REPORTING_ENABLED: "false"
+      GF_ANALYTICS_CHECK_FOR_UPDATES: "false"
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_USERS_ALLOW_ORG_CREATE: "false"
+      GF_LOG_LEVEL: "debug"
+    volumes:
+      - ./files/grafana/dashboards.yaml:/etc/grafana/provisioning/dashboards/default.yaml:ro
+      - ./files/grafana/prometheus.yaml:/etc/grafana/provisioning/datasources/prometheus.yaml:ro
+      - ./files/grafana/daemon_metrics.json:/var/lib/grafana/dashboards/daemon_metrics.json:ro
+      - grafana:/var/lib/grafana
+  exporter:
+    build:
+      context: ../../wownerod_exporter
+    environment:
+      DAEMON_HOST: http://wownerod:34568
+      PORT: 8080
+    ports:
+      - 127.0.0.1:8080:8080
   wownerod:
     image: lalanza808/wownero:latest
     volumes:
@@ -30,11 +53,5 @@ services:
     command:
       wownerod --data-dir=/data --rpc-bind-ip=0.0.0.0 --confirm-external-bind --non-interactive --public-node --restricted-rpc
     ports:
+      - 34567:34567
       - 34568:34568
-    labels:
-      - "traefik.http.routers.https.rule=Host(`${DAEMON_HOSTNAME}`)"
-      - "traefik.http.routers.http.rule=Host(`${DAEMON_HOSTNAME}`)"
-      - "traefik.http.routers.https.entrypoints=https"
-      - "traefik.http.routers.http.entrypoints=http"
-      - "traefik.http.routers.https.tls=true"
-      - "traefik.http.routers.https.tls.certresolver=letsencrypt"
