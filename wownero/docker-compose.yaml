@@ -51,7 +51,7 @@ services:
     volumes:
       - ./data/daemon:/data
     command:
-      wownerod --data-dir=/data --rpc-bind-ip=0.0.0.0 --confirm-external-bind --non-interactive --public-node --restricted-rpc
+      wownerod --data-dir=/data --rpc-bind-ip=0.0.0.0 --confirm-external-bind --non-interactive --public-node --rpc-restricted-bind-port 34568 --rpc-bind-port 34569
     ports:
       - 34567:34567
       - 34568:34568
