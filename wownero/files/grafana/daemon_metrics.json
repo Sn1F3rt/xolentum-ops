@@ -297,7 +297,7 @@
     },
     {
       "aliasColors": {},
-      "bars": false,
+      "bars": true,
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
@@ -320,14 +320,15 @@
         "total": false,
         "values": false
       },
-      "lines": true,
+      "lines": false,
       "linewidth": 1,
       "nullPointMode": "connected",
       "options": {
         "dataLinks": []
       },
       "percentage": false,
-      "pointradius": 2,
+      "pluginVersion": "6.5.0",
+      "pointradius": 0.5,
       "points": false,
       "renderer": "flot",
       "seriesOverrides": [
@@ -482,7 +483,7 @@
     "list": []
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-7d",
     "to": "now"
   },
   "timepicker": {
@@ -502,5 +503,5 @@
   "timezone": "",
   "title": "Daemon Stats",
   "uid": "0ktA4KDGk",
-  "version": 2
+  "version": 3
 }
