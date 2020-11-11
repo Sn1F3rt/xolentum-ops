@@ -1,4 +1,6 @@
-FROM ubuntu:19.10 as og
+FROM ubuntu:20.04 as og
+
+ENV DEBIAN_FRONTEND noninteractive
 
 WORKDIR /opt/wownero
 
@@ -6,13 +8,13 @@ RUN apt-get update && apt-get install -y \
     build-essential cmake pkg-config libboost-all-dev \
     libssl-dev libzmq3-dev libunbound-dev libsodium-dev libpgm-dev git
 
-RUN git clone https://git.wownero.com/wownero/wownero --depth=1 --branch=v0.9.0.2 .
+RUN git clone https://git.wownero.com/wownero/wownero --depth=1 --branch=v0.9.1.0 .
 
 RUN make -j2
 
 #
 
-FROM ubuntu:19.10
+FROM ubuntu:20.04
 
 WORKDIR /data
 
