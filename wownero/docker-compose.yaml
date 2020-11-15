@@ -21,6 +21,7 @@ services:
   grafana:
     image: grafana/grafana:6.5.0
     container_name: grafana
+    restart: unless-stopped
     ports:
       - 127.0.0.1:3000:3000
     environment:
@@ -42,6 +43,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-exporter
+    restart: unless-stopped
     environment:
       DAEMON_HOST: http://wownerod:34570
       PORT: 8080
@@ -49,6 +51,7 @@ services:
       - 127.0.0.1:8080:8080
   wownerod:
     image: lalanza808/wownero:v0.9.1.0
+    restart: unless-stopped
     volumes:
       - ~/data/daemon:/data
     command:
@@ -56,3 +59,4 @@ services:
     ports:
       - 34567:34567
       - 34568:34568
+      - 34570:34570
