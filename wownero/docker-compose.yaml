@@ -50,7 +50,7 @@ services:
     ports:
       - 127.0.0.1:8080:8080
   wownerod:
-    image: lalanza808/wownero:v0.9.1.0
+    image: lalanza808/wownero:v0.9.2.0
     restart: unless-stopped
     volumes:
       - ~/data/daemon:/data

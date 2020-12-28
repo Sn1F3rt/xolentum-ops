@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
     build-essential cmake pkg-config libboost-all-dev \
     libssl-dev libzmq3-dev libunbound-dev libsodium-dev libpgm-dev git
 
-RUN git clone https://git.wownero.com/wownero/wownero --depth=1 --branch=v0.9.1.0 .
+RUN git clone https://git.wownero.com/wownero/wownero --depth=1 --branch=v0.9.2.0 .
 
 RUN make -j2
 
