@@ -163,7 +163,7 @@
       "targets": [
         {
           "expr": "avg(monerod_block_reward)",
-          "legendFormat": "Block Reward (XMR)",
+          "legendFormat": "Block Reward (WOW)",
           "refId": "A"
         }
       ],
@@ -171,7 +171,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Block Reward (XMR)",
+      "title": "Block Reward (WOW)",
       "tooltip": {
         "shared": true,
         "sort": 0,
