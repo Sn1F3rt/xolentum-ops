@@ -5,7 +5,7 @@ volumes:
 services:
   prometheus:
     image: prom/prometheus:v2.18.0
-    container_name: prometheus
+    container_name: wownero_prometheus
     restart: unless-stopped
     command:
       - --config.file=/etc/prometheus/prometheus.yml
@@ -20,7 +20,7 @@ services:
       - 127.0.0.1:9090:9090
   grafana:
     image: grafana/grafana:6.5.0
-    container_name: grafana
+    container_name: wownero_grafana
     restart: unless-stopped
     ports:
       - 127.0.0.1:3000:3000
@@ -40,9 +40,10 @@ services:
       - ./files/grafana/daemon_metrics.json:/var/lib/grafana/dashboards/daemon_metrics.json:ro
       - grafana:/var/lib/grafana
   exporter:
+    container_name: wownero_exporter
     build:
-      context: .
-      dockerfile: Dockerfile-exporter
+      context: dockerfiles
+      dockerfile: wownerod_exporter
     restart: unless-stopped
     environment:
       DAEMON_HOST: http://wownerod:34570
@@ -50,7 +51,10 @@ services:
     ports:
       - 127.0.0.1:8080:8080
   wownerod:
-    image: lalanza808/wownero:v0.9.2.0
+    container_name: wownero_daemon
+    build:
+      context: dockerfiles
+      dockerfile: wownerod_nocompile
     restart: unless-stopped
     volumes:
       - ~/data/daemon:/data
