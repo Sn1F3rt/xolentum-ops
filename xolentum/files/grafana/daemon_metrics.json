@@ -59,17 +59,17 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "avg(monerod_connections_incoming)",
+          "expr": "avg(xolentumd_connections_incoming)",
           "legendFormat": "Incoming",
           "refId": "A"
         },
         {
-          "expr": "avg(monerod_connections_outgoing)",
+          "expr": "avg(xolentumd_connections_outgoing)",
           "legendFormat": "Outgoing",
           "refId": "B"
         },
         {
-          "expr": "avg(monerod_rpc_connections_count)",
+          "expr": "avg(xolentumd_rpc_connections_count)",
           "legendFormat": "RPC",
           "refId": "C"
         }
@@ -162,7 +162,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "avg(monerod_block_reward)",
+          "expr": "avg(xolentumd_block_reward)",
           "legendFormat": "Block Reward (XOL)",
           "refId": "A"
         }
@@ -255,7 +255,7 @@
       "steppedLine": true,
       "targets": [
         {
-          "expr": "avg(monerod_tx_mempool)",
+          "expr": "avg(xolentumd_tx_mempool)",
           "legendFormat": "Pool Transactions",
           "refId": "A"
         }
@@ -347,7 +347,7 @@
       "steppedLine": true,
       "targets": [
         {
-          "expr": "avg(monerod_block_difficulty)",
+          "expr": "avg(xolentumd_block_difficulty)",
           "refId": "A"
         }
       ],
@@ -438,7 +438,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "monerod_database_size",
+          "expr": "xolentumd_database_size",
           "legendFormat": "Chain Size",
           "refId": "A"
         }
@@ -550,7 +550,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "avg(monerod_tx_chain)",
+          "expr": "avg(xolentumd_tx_chain)",
           "instant": true,
           "refId": "A"
         }
