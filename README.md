@@ -1,3 +1,11 @@
-# docker-wownero
+# Xolentum Ops
 
-Run WOWOps :tm: with containers because why the hell not.
+## About
+
+Run Xolentum Ops with Docker Containers. 
+
+## License
+
+[BSD-3-Clause License](LICENSE)
+
+Copyright (c) 2021 The Xolentum Project
