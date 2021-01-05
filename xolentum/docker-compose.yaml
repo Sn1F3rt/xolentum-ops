@@ -5,7 +5,7 @@ volumes:
 services:
   prometheus:
     image: prom/prometheus:v2.18.0
-    container_name: wownero_prometheus
+    container_name: xolentum_prometheus
     restart: unless-stopped
     command:
       - --config.file=/etc/prometheus/prometheus.yml
@@ -20,7 +20,7 @@ services:
       - 127.0.0.1:9090:9090
   grafana:
     image: grafana/grafana:6.5.0
-    container_name: wownero_grafana
+    container_name: xolentum_grafana
     restart: unless-stopped
     ports:
       - 127.0.0.1:3000:3000
@@ -40,13 +40,13 @@ services:
       - ./files/grafana/daemon_metrics.json:/var/lib/grafana/dashboards/daemon_metrics.json:ro
       - grafana:/var/lib/grafana
   exporter:
-    container_name: wownero_exporter
+    container_name: xolentum_exporter
     build:
       context: dockerfiles
-      dockerfile: wownerod_exporter
+      dockerfile: xolentum_exporter
     restart: unless-stopped
     environment:
-      DAEMON_HOST: http://wownerod:34570
+      DAEMON_HOST: http://xolentumd:13585
       PORT: 8080
     ports:
       - 127.0.0.1:8080:8080
@@ -59,8 +59,8 @@ services:
     volumes:
       - ~/data/daemon:/data
     command:
-      wownerod --data-dir=/data --rpc-bind-ip=0.0.0.0 --confirm-external-bind --non-interactive --public-node --rpc-restricted-bind-port 34568 --rpc-bind-port 34570 --log-level 0
+      xolentumd --data-dir=/data --rpc-bind-ip=0.0.0.0 --confirm-external-bind --non-interactive --public-node --rpc-restricted-bind-port 13580 --rpc-bind-port 13585 --log-level 0
     ports:
-      - 34567:34567
-      - 34568:34568
-      - 34570:34570
+      - 13579:13579
+      - 13580:13580
+      - 13585:13585

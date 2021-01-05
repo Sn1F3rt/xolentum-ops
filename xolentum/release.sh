@@ -6,7 +6,7 @@ TAG="${1}"
 BASE=$(echo ${TAG} | cut -d":" -f1)
 
 if [[ -z "${TAG}" ]]; then
-  echo "You must specify a container tag. ex: lalanza808/wownero:v0.9.2.0"
+  echo "You must specify a container tag! Eg: sohamb03/xolentum:v0.3.0.0"
   exit 1
 fi
 

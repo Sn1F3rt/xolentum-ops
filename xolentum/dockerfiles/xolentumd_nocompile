@@ -1,0 +1,40 @@
+FROM ubuntu:20.04
+
+ENV XOLENTUM_HASH 97e280408e178c58f34f63552b6203d45747d6dbc26364b860188e8a656bba05
+ENV XOLENTUM_DL_URL https://github.com/xolentum/xolentum/releases/download/v0.3.0.0/xolentum_v0.3.0.0_linux-x64.zip
+ENV XOLENTUM_DL_FILE xolentum.zip
+ENV XOLENTUM_SUMS_FILE sha256sums
+
+WORKDIR /opt/xolentum
+
+# Update system and install dependencies
+# Download Xolentum binaries from Gitea
+# Confirm hashes match
+# Install daemon binary
+# Clean up
+
+RUN apt-get update \
+  && apt-get upgrade -y \
+  && apt-get install -y unzip wget
+
+RUN wget -qO ${XOLENTUM_DL_FILE} ${XOLENTUM_DL_URL} \
+  && echo "${XOLENTUM_HASH}  ${XOLENTUM_DL_FILE}" > ${XOLENTUM_SUMS_FILE} \
+  && sha256sum -c ${XOLENTUM_SUMS_FILE}; \
+  if [ "$?" -eq 0 ]; \
+  then \
+    echo -e "[+] Hashes match - proceeding with container build"; \
+  else \
+    echo -e "[!] Hashes do not match - exiting"; \
+    exit 5; \
+  fi \
+  && mkdir ./tmp \
+  && unzip ${XOLENTUM_DL_FILE} -d ./tmp \
+  && mv ./tmp/**/* /usr/local/bin/ \
+  && rm -rf ./tmp ${XOLENTUM_SUMS_FILE} ${XOLENTUM_DL_FILE}
+
+WORKDIR /data
+
+EXPOSE 18080
+EXPOSE 18081
+EXPOSE 18082
+EXPOSE 18083

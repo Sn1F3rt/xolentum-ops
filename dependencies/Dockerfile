@@ -1,5 +1,5 @@
 ARG DEBIAN_VERSION="${DEBIAN_VERSION:-stable-slim}"
-FROM debian:${DEBIAN_VERSION} as wow-dependencies
+FROM debian:${DEBIAN_VERSION} as xol-dependencies
 
 WORKDIR /data
 
@@ -206,4 +206,4 @@ RUN echo "\e[32mbuilding: Udev\e[39m" \
     && ldconfig \
     && cd /data || exit 1 \
     && rm -rf /data/protobuf \
-    && echo "\e[32mdone building this mofo!\e[39m"
+    && echo "\e[32mdone building thi/s mofo!\e[39m"

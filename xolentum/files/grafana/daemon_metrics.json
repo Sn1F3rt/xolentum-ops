@@ -163,7 +163,7 @@
       "targets": [
         {
           "expr": "avg(monerod_block_reward)",
-          "legendFormat": "Block Reward (WOW)",
+          "legendFormat": "Block Reward (XOL)",
           "refId": "A"
         }
       ],
@@ -171,7 +171,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Block Reward (WOW)",
+      "title": "Block Reward (XOL)",
       "tooltip": {
         "shared": true,
         "sort": 0,
