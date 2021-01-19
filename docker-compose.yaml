@@ -43,7 +43,7 @@ services:
     container_name: xolentum_exporter
     build:
       context: dockerfiles
-      dockerfile: xolentum_exporter
+      dockerfile: xolentumd_exporter
     restart: unless-stopped
     environment:
       DAEMON_HOST: http://xolentumd:13585
