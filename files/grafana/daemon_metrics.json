@@ -69,7 +69,7 @@
           "refId": "B"
         },
         {
-          "expr": "avg(xolentumd_rpc_connections_count)",
+          "expr": "avg(xolentumd_connections_rpc)",
           "legendFormat": "RPC",
           "refId": "C"
         }
